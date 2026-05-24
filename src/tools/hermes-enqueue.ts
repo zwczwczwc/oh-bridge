@@ -48,7 +48,8 @@ function kanbanCreate(params: Record<string, unknown>): Promise<{ stdout: string
 }
 
 function extractKanbanTaskId(stdout: string): string | null {
-  const match = stdout.match(/task[:\s]+([a-zA-Z0-9_-]+)/i);
+  // CLI output format: "Created t_xxxxxxxx  (ready, assignee=...)"
+  const match = stdout.match(/\b(t_[a-f0-9]{8,})\b/i);
   return match ? match[1] : null;
 }
 
