@@ -1,14 +1,30 @@
 import { describe, it, expect } from "vitest";
-import { registerTools } from "../src/index.js";
+import { createHermesExecuteTool } from "../src/tools/hermes-execute.js";
+import { createHermesEnqueueTool } from "../src/tools/hermes-enqueue.js";
+import { createHermesSwarmTool } from "../src/tools/hermes-swarm.js";
+import { createHermesProfilesTool } from "../src/tools/hermes-profiles.js";
+import { createHermesCapabilitiesTool } from "../src/tools/hermes-capabilities.js";
 
-describe("registerTools", () => {
+describe("oh-bridge tool suite", () => {
   it("returns exactly 5 tools", () => {
-    const tools = registerTools();
+    const tools = [
+      createHermesExecuteTool(),
+      createHermesEnqueueTool(),
+      createHermesSwarmTool(),
+      createHermesProfilesTool(),
+      createHermesCapabilitiesTool(),
+    ];
     expect(tools).toHaveLength(5);
   });
 
   it("all tools have required fields", () => {
-    const tools = registerTools();
+    const tools = [
+      createHermesExecuteTool(),
+      createHermesEnqueueTool(),
+      createHermesSwarmTool(),
+      createHermesProfilesTool(),
+      createHermesCapabilitiesTool(),
+    ];
     for (const tool of tools) {
       expect(tool.name).toBeTruthy();
       expect(tool.label).toBeTruthy();
@@ -19,7 +35,13 @@ describe("registerTools", () => {
   });
 
   it("includes all expected tool names", () => {
-    const tools = registerTools();
+    const tools = [
+      createHermesExecuteTool(),
+      createHermesEnqueueTool(),
+      createHermesSwarmTool(),
+      createHermesProfilesTool(),
+      createHermesCapabilitiesTool(),
+    ];
     const names = tools.map((t) => t.name).sort();
     expect(names).toEqual([
       "hermes_capabilities",
